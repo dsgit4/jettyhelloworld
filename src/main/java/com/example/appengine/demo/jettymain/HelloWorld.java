@@ -5,13 +5,16 @@ package com.example.appengine.demo.jettymain;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.eclipse.jetty.servlet.ServletContextHandler;
 
+@WebServlet
 public class HelloWorld extends HttpServlet {
 
 
@@ -54,8 +57,14 @@ public class HelloWorld extends HttpServlet {
 
     public static void main(String[] args) throws Exception {
         Server server = new Server(8080);
-     //   server.setHandler(new HelloWorld());
+        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
+        context.setContextPath("/");
+        context.addServlet(HelloWorld.class, "/iiif/*");
+        server.setHandler(context);
+
+    //  server.setHandler(new HelloWorld());
         server.start();
+        System.out.println("Started: ");
         server.join();
     }
 }
