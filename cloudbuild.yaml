@@ -1,5 +1,5 @@
 steps:
   - name: gcr.io/cloud-builders/mvn
     id: build
-    args: ['clean', 'install', 'jib:build', '-Dimage=gcr.io/nih-test/cr-hellojetty']
+    args: ['clean', 'install', 'jib:build', '-Dimage=gcr.io/nih-test/cr-hellojetty-stage']
 timeout: "1600s"
