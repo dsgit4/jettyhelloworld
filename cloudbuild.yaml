@@ -15,7 +15,7 @@ steps:
   - id: Build image for docker hub
     name: 'gcr.io/cloud-builders/docker'
     entrypoint: 'bash'
-    args: ['build', '-t', '$$USERNAME/simple-jetty-image:latest', '.']
+    args: ['-c', 'build -t $$USERNAME/simple-jetty-image:latest', './']
     secretEnv: ['USERNAME']
 
   - id: push image to docker hub
