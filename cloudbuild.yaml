@@ -6,18 +6,24 @@
 
 # for docker hub registry
 steps:
-    - name: 'gcr.io/cloud-builders/docker'
-      entrypoint: 'bash'
-      args: ['-c', 'docker login --username=$$USERNAME --password=$$PASSWORD']
-      secretEnv: ['USERNAME', 'PASSWORD']
-    - name: 'gcr.io/cloud-builders/docker'
-      entrypoint: 'bash'
-      args: ['-c', 'docker build -t $$USERNAME/simple-jetty-image:latest .']
-      secretEnv: ['USERNAME']
-    - name: 'gcr.io/cloud-builders/docker'
-      entrypoint: 'bash'
-      args: ['-c', 'docker push $$USERNAME/simple-jetty-image:latest']
-      secretEnv: ['USERNAME']
+  - id: Login docker hub
+    name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args: ['-c', 'docker login --username=$$USERNAME --password=$$PASSWORD']
+    secretEnv: ['USERNAME', 'PASSWORD']
+
+  - id: Build image for docker hub
+    name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args: ['-c', 'docker build -t $$USERNAME/simple-jetty-image:latest .']
+    secretEnv: ['USERNAME']
+
+  - id: push image to docker hub
+    name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args: ['-c', 'docker push $$USERNAME/simple-jetty-image:latest']
+    secretEnv: ['USERNAME']
+
 availableSecrets:
       secretManager:
       - versionName: projects/nih-test/secrets/docker-password/versions/1
