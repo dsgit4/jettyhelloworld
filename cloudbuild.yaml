@@ -18,7 +18,7 @@ steps:
       entrypoint: 'bash'
       args: ['-c', 'docker push $$USERNAME/simple-jetty-image:latest']
       secretEnv: ['USERNAME']
-    - availableSecrets:
+availableSecrets:
       secretManager:
       - versionName: projects/nih-test/secrets/docker-password/versions/1
         env: 'PASSWORD'
