@@ -19,7 +19,7 @@ steps:
     args:
       - '-c'
       - |
-        docker build -t $$USERNAME/simple-jetty-image:latest  .'
+        docker build -t $$USERNAME/simple-jetty-image:latest
     secretEnv: ['USERNAME']
 
 #  - id: push image to docker hub
