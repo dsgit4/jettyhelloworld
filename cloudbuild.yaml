@@ -13,18 +13,16 @@ steps:
     secretEnv: ['USERNAME', 'PASSWORD']
 
   - id: Build image for docker hub
-    name: gcr.io/cloud-builders/mvn
-    args: ['clean', 'install', 'docker login --username=$$USERNAME --password=$$PASSWORD', 'jib:build', '-Dimage=hub.docker.com/repository/docker/dsgit4/simple-jetty-image:latest']
-#    name: 'gcr.io/cloud-builders/docker'
-#    entrypoint: 'bash'
-#    args: ['-c', 'docker build -t dsgit4/simple-jetty-image:latest  .']
-#    secretEnv: ['USERNAME']
+    name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args: ['-c', 'docker build -t $$USERNAME/simple-jetty-image:latest  .']
+    secretEnv: ['USERNAME']
 
-#  - id: push image to docker hub
-#    name: 'gcr.io/cloud-builders/docker'
-#    entrypoint: 'bash'
-#    args: ['-c', 'docker push $$USERNAME/simple-jetty-image:latest']
-#    secretEnv: ['USERNAME']
+  - id: push image to docker hub
+    name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args: ['-c', 'docker push $$USERNAME/simple-jetty-image:latest']
+    secretEnv: ['USERNAME']
 
 availableSecrets:
       secretManager:
