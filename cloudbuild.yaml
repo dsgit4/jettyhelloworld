@@ -2,7 +2,7 @@
 steps:
   - name: gcr.io/cloud-builders/mvn
     id: build
-    args: ['clean', 'install', 'jib:build', '-Dimage=gcr.io/nih-test/cr-hellojetty-stage']
+    args: ['clean', 'install', 'jib:build', '-Dimage=gcr.io/nih-test/cr-hellojetty-env']
 
 # for docker hub registry
 #steps:
