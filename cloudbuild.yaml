@@ -1,35 +1,35 @@
 #for jib and google container registry
-#steps:
-#  - name: gcr.io/cloud-builders/mvn
-#    id: build
-#    args: ['clean', 'install', 'jib:build', '-Dimage=gcr.io/nih-test/cr-hellojetty-stage']
+steps:
+  - name: gcr.io/cloud-builders/mvn
+    id: build
+    args: ['clean', 'install', 'jib:build', '-Dimage=gcr.io/nih-test/cr-hellojetty-stage']
 
 # for docker hub registry
-steps:
-  - id: Login docker hub
-    name: 'gcr.io/cloud-builders/docker'
-    entrypoint: 'bash'
-    args: ['-c', 'docker login --username=$$USERNAME --password=$$PASSWORD']
-    secretEnv: ['USERNAME', 'PASSWORD']
-
-  - id: Build image for docker hub
-    name: 'gcr.io/cloud-builders/docker'
-    entrypoint: 'bash'
-    args: ['-c', 'docker build -t $$USERNAME/simple-jetty-image:latest ', ' .']
-    secretEnv: ['USERNAME']
-
-  - id: push image to docker hub
-    name: 'gcr.io/cloud-builders/docker'
-    entrypoint: 'bash'
-    args: ['-c', 'docker push $$USERNAME/simple-jetty-image:latest']
-    secretEnv: ['USERNAME']
-
-availableSecrets:
-      secretManager:
-      - versionName: projects/nih-test/secrets/docker-password/versions/1
-        env: 'PASSWORD'
-      - versionName: projects/nih-test/secrets/docker-username/versions/1
-        env: 'USERNAME'
+#steps:
+#  - id: Login docker hub
+#    name: 'gcr.io/cloud-builders/docker'
+#    entrypoint: 'bash'
+#    args: ['-c', 'docker login --username=$$USERNAME --password=$$PASSWORD']
+#    secretEnv: ['USERNAME', 'PASSWORD']
+#
+#  - id: Build image for docker hub
+#    name: 'gcr.io/cloud-builders/docker'
+#    entrypoint: 'bash'
+#    args: ['-c', 'docker build -t $$USERNAME/simple-jetty-image:latest ', ' .']
+#    secretEnv: ['USERNAME']
+#
+#  - id: push image to docker hub
+#    name: 'gcr.io/cloud-builders/docker'
+#    entrypoint: 'bash'
+#    args: ['-c', 'docker push $$USERNAME/simple-jetty-image:latest']
+#    secretEnv: ['USERNAME']
+#
+#availableSecrets:
+#      secretManager:
+#      - versionName: projects/nih-test/secrets/docker-password/versions/1
+#        env: 'PASSWORD'
+#      - versionName: projects/nih-test/secrets/docker-username/versions/1
+#        env: 'USERNAME'
 
 
 timeout: "1600s"

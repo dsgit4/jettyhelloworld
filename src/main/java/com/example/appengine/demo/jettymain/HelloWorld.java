@@ -31,6 +31,9 @@ public class HelloWorld extends HttpServlet {
             throws ServletException, IOException {
     String iiif = request.getParameter("iiif");
     System.out.println("1.request param iiif is: "+iiif);
+    String blackURLS = System.getenv("blackURLS");
+    System.out.println("blackURLS: "+blackURLS);
+
         // Set response content type
         response.setContentType("text/html");
 
@@ -47,8 +50,8 @@ public class HelloWorld extends HttpServlet {
                 "<ul>\n" +
                 "  <li><b>URL</b>: "
                 + request.getParameter("iiif") + "\n" +
-//                "  <li><b>Last Name</b>: "
-//                + request.getParameter("last_name") + "\n" +
+                "  <li><b>blackURLS</b>: "
+                + blackURLS + "\n" +
                 "</ul>\n" +
                 "</body>" +
                 "</html>"
